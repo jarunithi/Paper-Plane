@@ -1,6 +1,7 @@
 var score,time;
 var GameLayer = cc.LayerColor.extend({
     init: function() {
+        var isOver=true;
         this._super( new cc.Color4B( 127, 127, 127, 255 ) );
         this.setPosition( new cc.Point( 0, 0 ) );
         this.Bg1 =new Background();
@@ -16,6 +17,7 @@ var GameLayer = cc.LayerColor.extend({
         this.Bg2.scheduleUpdate();
         this.Bg3.scheduleUpdate();
         this.plane=new Plane();
+        this.plane.setScale(0.7);
         this.plane.setPosition(new cc.Point(200,300));
         this.addChild(this.plane);
         this.plane.scheduleUpdate();

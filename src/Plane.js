@@ -9,11 +9,11 @@ var Plane = cc.Sprite.extend({
     var pos=this.getPosition();
         
         if(headup){
-            angle-=0.4;}
+            angle-=0.23;}
         else
-            angle+=0.2;
+            angle+=0.1;
         this.setRotation(angle);
-        var y=Math.abs(Math.sin(angle));
+        var y=Math.abs(Math.sin(angle*4))*Math.abs(angle/10);
         if(angle>0)
     this.setPosition( new cc.Point( 200, pos.y-y) );
         else
@@ -24,6 +24,7 @@ var Plane = cc.Sprite.extend({
         if(angle<=-20){
         angle=-20;
         }
+    if(pos.y>600||pos.y<0) this.setPosition( new cc.Point( 200, 300) );
     },
     headup : function() {
 	  headup=true;

@@ -12,4 +12,4 @@ var Background = cc.Sprite.extend({
         else
          this.setPosition( new cc.Point( 1600,300 ) );
     }
- });
+ });    

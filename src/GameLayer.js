@@ -16,10 +16,15 @@ var GameLayer = cc.LayerColor.extend({
         this.Bg1.scheduleUpdate();
         this.Bg2.scheduleUpdate();
         this.Bg3.scheduleUpdate();
+        this.staminaLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
+	   this.staminaLabel.setPosition( new cc.Point( 650, 550 ) );
         this.plane=new Plane();
         this.plane.setScale(0.7);
         this.plane.setPosition(new cc.Point(200,300));
         this.addChild(this.plane);
+        this.sta=100;
+        this.staminaLabel.setString("Stamina : "+ this.sta  );
+	   this.addChild( this.staminaLabel );
         this.plane.scheduleUpdate();
         this.scheduleUpdate();  
         this.setKeyboardEnabled( true );
@@ -27,7 +32,11 @@ var GameLayer = cc.LayerColor.extend({
         return true;
     },
     onKeyDown: function( e ) {
+        if(this.sta>0){
 	    this.plane.headup();
+        this.sta-=0.1;            
+        this.staminaLabel.setString( "Stamina : "+Math.round(this.sta)  );}
+        else this.plane.stop();
     },
     onKeyUp: function ( e ){
        this.plane.stop();

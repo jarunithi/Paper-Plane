@@ -16,7 +16,7 @@ var Plane = cc.Sprite.extend({
         if(headup){
             angle-=0.23;}
         else
-            if(angle<20)
+            if(angle<-20)
             angle+=0.12;
         else angle+=0.23;
         this.setRotation(angle);

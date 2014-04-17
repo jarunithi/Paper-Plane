@@ -1,4 +1,4 @@
-var angle=0,moment=0,headup=false;
+var angle=0,headup=false;
 var Plane = cc.Sprite.extend({
     ctor: function () {
         this._super();

@@ -1,4 +1,3 @@
-var score,time;
 var GameLayer = cc.LayerColor.extend({
     init: function() {
         var isOver=true;

@@ -14,13 +14,13 @@ var Plane = cc.Sprite.extend({
     rotage:function(){
         if(headup){
             angle-=0.23;}
-        else
-            if(angle==-20)
-            angle+=0.12;    
-        else angle+=0.23;
+        else{
+            if(angle>=20)angle+=0.27;    
+            else angle+=0.19         ;
+        }
         this.setRotation(angle);
     },
-    updateY:function(dt){
+    updateY:function(dt){   
         if(!over){
         var pos=this.getPosition();
         var y=Math.abs(Math.sin(angle*4))*Math.abs(angle/10);
@@ -41,7 +41,7 @@ var Plane = cc.Sprite.extend({
     },
     test:function(dt){
         var pos=this.getPosition();
-       if(pos.y>610||pos.y<-10) over=true;
+       if(pos.y>630||pos.y<-30) over=true;
     },
     getOver:function(){
         return over;

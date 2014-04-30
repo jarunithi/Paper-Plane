@@ -6,7 +6,6 @@ var Plane = cc.Sprite.extend({
         
     },
     update: function( dt ) {
-    
         this.rotage();
         this.updateY(dt);
         this.limitAngle();

@@ -28,7 +28,4 @@ var Background = cc.Sprite.extend({
         total=temp*1400+Math.abs(distance);
        return (total-200)/10;
     },
-    stop:function(){
-        speed=0;
-    }
  });    

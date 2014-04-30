@@ -15,7 +15,8 @@
             'src/sprintf.js',
             'src/GameLayer.js',
             'src/Plane.js',
-            'src/Background.js'
+            'src/Background.js',
+            'src/Bar.js'
             
             
             //add your own files in order here

@@ -6,14 +6,21 @@ var GameLayer = cc.LayerColor.extend({
         this.Bg1 =new Background();
         this.Bg2 =new Background();
         this.Bg3 =new Background();
+        this.head = new headBar();
+        this.body = new bodyBar();
+        this.tail = new tailBar();
         this.Bg1.setPosition( new cc.Point( 0, 300 ) );
         this.Bg2.setPosition( new cc.Point( 800, 300 ) );
         this.Bg3.setPosition( new cc.Point( 1600, 300 ) );
+        this.head.setPosition( new cc.Point( 140, 555 ) );
+        this.body.setPosition( new cc.Point( 462, 555 ) );
+        this.tail.setPosition( new cc.Point( 784, 555 ) );
+        this.body.setScaleX(0.95);
         this.addChild(this.Bg1);
         this.addChild(this.Bg2);
         this.addChild(this.Bg3);
-        this.staminaLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
-	   this.staminaLabel.setPosition( new cc.Point( 650, 550 ) );
+        this.staminaLabel = cc.LabelTTF.create( '0', 'Arial', 30 );
+	   this.staminaLabel.setPosition( new cc.Point( 80, 550 ) );
         this.distance = cc.LabelTTF.create( '0', 'Arial', 40 );
 	   this.distance.setPosition( new cc.Point( 650, 500 ) );
         this.plane=new Plane();
@@ -21,8 +28,11 @@ var GameLayer = cc.LayerColor.extend({
         this.plane.setPosition(new cc.Point(200,300));
         this.addChild(this.plane);
         this.sta=100;
-        this.staminaLabel.setString("Stamina : "+ this.sta  );
+        this.staminaLabel.setString("Stamina ");
         this.distance.setString(0);
+        this.addChild(this.head);
+        this.addChild(this.tail);
+        this.addChild(this.body);
 	   this.addChild( this.staminaLabel );
         this.addChild(this.distance);   
         this.scheduleUpdate();  
@@ -34,7 +44,7 @@ var GameLayer = cc.LayerColor.extend({
         if(this.sta>0&&!this.isOver){
 	    this.plane.headup();
         this.sta-=0.1;
-        this.staminaLabel.setString( "Stamina : "+Math.round(this.sta)  );}
+        this.staminaLabel.setString( "Stamina ");}
         else this.plane.headdown();
     },
     onKeyUp: function ( e ){
@@ -48,12 +58,15 @@ var GameLayer = cc.LayerColor.extend({
         this.Bg2.scheduleUpdate();
         this.Bg3.scheduleUpdate();
         this.plane.scheduleUpdate();
+        this.body.updatepos(this.sta);
+        this.tail.updatepos(this.sta);
         }
         else{
             this.unscheduleUpdate();
-            this.Bg1.stop();
-            this.Bg2.stop();
-            this.Bg3.stop();
+            this.plane.unscheduleUpdate();
+            this.Bg1.unscheduleUpdate();
+            this.Bg2.unscheduleUpdate();
+            this.Bg3.unscheduleUpdate();
             }
         this.isOver=this.plane.getOver();
     }

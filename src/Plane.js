@@ -41,7 +41,7 @@ var Plane = cc.Sprite.extend({
     },
     test:function(dt){
         var pos=this.getPosition();
-       if(pos.y>600||pos.y<0) over=true;
+       if(pos.y>610||pos.y<-10) over=true;
     },
     getOver:function(){
         return over;

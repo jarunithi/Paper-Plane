@@ -15,7 +15,7 @@ var bodyBar = cc.Sprite.extend({
         
         this.temp=scale/100;
         this.setScaleX(0.95*this.temp);
-        this.setPosition( new cc.Point(140+(this.temp*322),555 ) ); 
+        this.setPosition( new cc.Point(144+(this.temp*318),555 ) ); 
     }
  });
 var tailBar = cc.Sprite.extend({
@@ -27,6 +27,6 @@ var tailBar = cc.Sprite.extend({
     updatepos:function(scale){
         
         this.temp=scale/100;
-        this.setPosition( new cc.Point( 149+(this.temp*635),555 ) ); 
+        this.setPosition( new cc.Point( 148+(this.temp*636.5),555 ) ); 
     }
  });

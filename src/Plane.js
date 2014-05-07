@@ -46,6 +46,9 @@ var Plane = cc.Sprite.extend({
     getOver:function(){
         return over;
     },
+    ReOver:function(){
+        over=false;
+    },
     headup : function() {
 	  headup=true;
     },

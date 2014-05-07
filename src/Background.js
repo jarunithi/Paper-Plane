@@ -26,6 +26,6 @@ var Background = cc.Sprite.extend({
         else
         distance=(pos.x-200)-2000;
         total=temp*1400+Math.abs(distance);
-       return (total-200)/100;
+       return (total-200)/50;
     },
  });    

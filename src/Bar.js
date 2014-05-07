@@ -30,3 +30,20 @@ var tailBar = cc.Sprite.extend({
         this.setPosition( new cc.Point( 148+(this.temp*636.5),555 ) ); 
     }
  });
+var OverScene = cc.Sprite.extend({
+    ctor: function () {
+        this._super();
+        this.initWithFile('images/over.png');
+        this.setOpacity(0);
+        this.setPosition( new cc.Point( 400,300 ) );  
+    }
+ });
+var Overtext = cc.Sprite.extend({
+    ctor: function () {
+        this._super();
+        this.initWithFile('images/gameover.png');
+        this.setOpacity(0);
+        this.setPosition( new cc.Point( 400,400 ) );  
+        
+    }
+ });

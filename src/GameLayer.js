@@ -22,7 +22,7 @@ var GameLayer = cc.LayerColor.extend({
         this.staminaLabel = cc.LabelTTF.create( '0', 'Arial', 30 );
 	   this.staminaLabel.setPosition( new cc.Point( 80, 550 ) );
         this.distance = cc.LabelTTF.create( '0', 'Arial', 40 );
-	   this.distance.setPosition( new cc.Point( 650, 500 ) );
+	   this.distance.setPosition( new cc.Point( 700, 500 ) );
         this.plane=new Plane();
         this.plane.setScale(0.7);
         this.plane.setPosition(new cc.Point(200,300));
@@ -37,22 +37,22 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild(this.distance);   
         this.scheduleUpdate();  
         this.setKeyboardEnabled( true );
-    
         return true;
     },
     onKeyDown: function( e ) {
         if(this.sta>0&&!this.isOver){
 	    this.plane.headup();
-        this.sta-=0.1;
+        this.sta-=0.2;
         this.staminaLabel.setString( "Stamina ");}
         else this.plane.headdown();
+        if(e==13&&this.isOver){this.re();}
     },
     onKeyUp: function ( e ){
        this.plane.headdown();
     },
     update: function() {
         var temp=this.Bg1.getTemp();
-        this.distance.setString( sprintf("%.1f", temp));
+        this.distance.setString( sprintf("%.1f m", temp));
         if(!this.isOver){
         this.Bg1.scheduleUpdate();
         this.Bg2.scheduleUpdate();
@@ -62,14 +62,48 @@ var GameLayer = cc.LayerColor.extend({
         this.tail.updatepos(this.sta);
         }
         else{
+            this.overbg=new OverScene();
+            this.addChild(this.overbg);
+            this.overbg.runAction(cc.FadeTo.create(2,100));
+            this.scheduleOnce(this.fadeGameOver,2);
             this.unscheduleUpdate();
             this.plane.unscheduleUpdate();
             this.Bg1.unscheduleUpdate();
             this.Bg2.unscheduleUpdate();
             this.Bg3.unscheduleUpdate();
+            this.scheduleOnce(this.fadela,4);
+            this.scheduleOnce(this.fadeScore,6);
             }
         this.isOver=this.plane.getOver();
+    },
+    re:function(){
+        this.isOver=false;
+        this.plane.ReOver();
+        var director=cc.Director.getInstance();
+        director.replaceScene(cc.TransitionFade.create(1,new StartScene()));
+    },
+    fadeGameOver:function(obj){
+        this.overtex=new Overtext();
+        this.addChild(this.overtex);
+        this.overtex.runAction(cc.FadeIn.create(2));
+    },
+    fadela:function(obj){
+        this.scorela= cc.LabelTTF.create( '0', 'Arial', 30 );
+	        this.scorela.setPosition( new cc.Point( 400, 275 ) );
+            this.scorela.setString("Your score is ");
+            this.scorela.setOpacity(0);
+            this.addChild(this.scorela);
+        this.scorela.runAction(cc.FadeIn.create(2));
+    },
+    fadeScore:function(obj){
+        this.score= cc.LabelTTF.create( '0', 'Arial', 50 );
+	        this.score.setPosition( new cc.Point( 400, 200 ) );
+            this.score.setString(this.Bg1.getTemp()*100);
+            this.score.setOpacity(0);
+            this.addChild(this.score);
+            this.score.runAction(cc.FadeIn.create(2));
     }
+                                     
 });
 
 var StartScene = cc.Scene.extend({
@@ -80,4 +114,6 @@ var StartScene = cc.Scene.extend({
         this.addChild( layer );
     }
 });
+
+
 

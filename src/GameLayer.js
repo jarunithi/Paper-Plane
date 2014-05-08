@@ -70,7 +70,7 @@ var GameLayer = cc.LayerColor.extend({
     },
     update: function() {
         this.time++;
-        this.diff+=0.003;
+        this.diff+=0.0015;
         this.diffy-=0.00008;
         var temp=this.Bg1.getTemp();
         this.distance.setString( sprintf("%.1f m", temp));

@@ -32,12 +32,13 @@ var missile = cc.Sprite.extend({
     },
      closeTo: function(oPos){
 	var myPos = this.getPosition();
-  	if( ( Math.abs( myPos.x - oPos.x ) <= 35 ) && ( Math.abs( myPos.y - oPos.y ) <= 20))
+  	if( ( Math.abs( myPos.x - oPos.x ) <= 30 ) && ( Math.abs( myPos.y - oPos.y ) <= 20))
         this.gameLayer.isOver=true;
     },
      test:function(){
         var pos=this.getPosition();
-       if(pos.x<-30) this.gameLayer.removeChild(this);
+       if(pos.x<-30){ this.gameLayer.removeChild(this)};
+       if(pos.x>201&&pos.x<202){this.gameLayer.miscount+=1;}
     },
     random:function(){
     var y=25+Math.random()*550;

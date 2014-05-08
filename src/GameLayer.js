@@ -42,6 +42,10 @@ var GameLayer = cc.LayerColor.extend({
         this.la.setOpacity(0);
         this.addChild(this.la);
         this.la.runAction(cc.FadeIn.create(2));
+        this.la2= cc.LabelTTF.create( '0', 'Arial', 20 );
+        this.la2.setPosition( new cc.Point( 100, 500 ) );
+        this.la2.setString("Missile dodge : "+this.miscount);
+        this.addChild(this.la2);
         this.time=0;
         this.scheduleUpdate();  
         this.setKeyboardEnabled( true );
@@ -62,6 +66,7 @@ var GameLayer = cc.LayerColor.extend({
         this.time++;
         var temp=this.Bg1.getTemp();
         this.distance.setString( sprintf("%.1f m", temp));
+        this.la2.setString("Missile dodge : "+this.miscount);
         if(!this.isOver){
         this.Bg1.scheduleUpdate();
         this.Bg2.scheduleUpdate();
@@ -110,7 +115,7 @@ var GameLayer = cc.LayerColor.extend({
     },
     fadela:function(obj){
         this.scorela= cc.LabelTTF.create( '0', 'Arial', 30 );
-	        this.scorela.setPosition( new cc.Point( 400, 275 ) );
+	        this.scorela.setPosition( new cc.Point( 400, 280 ) );
             this.scorela.setString("Your score is ");
             this.scorela.setOpacity(0);
             this.addChild(this.scorela);
@@ -118,14 +123,13 @@ var GameLayer = cc.LayerColor.extend({
     },
     fadeScore:function(obj){
         this.score= cc.LabelTTF.create( '0', 'Arial', 50 );
-	        this.score.setPosition( new cc.Point( 400, 200 ) );
-            this.score.setString(sprintf("%d",this.Bg1.getTemp()*100));
+	        this.score.setPosition( new cc.Point( 400, 180 ) );
+            this.score.setString(sprintf("%d",this.Bg1.getTemp()*100+this.miscount*50));
             this.score.setOpacity(0);
             this.addChild(this.score);
             this.score.runAction(cc.FadeIn.create(2));
     },
     genMissile:function(){
-        this.miscount++;
         this.mis=new missile(this);
         this.mis.random();
         this.addChild(this.mis);
@@ -133,7 +137,7 @@ var GameLayer = cc.LayerColor.extend({
     },
     relable:function(obj){
         this.scorela= cc.LabelTTF.create( '0', 'Arial', 20 );
-	        this.scorela.setPosition( new cc.Point( 400, 110 ) );
+	        this.scorela.setPosition( new cc.Point( 400, 50 ) );
             this.scorela.setString("Press Enter to try again");
             this.scorela.setOpacity(0);
             this.addChild(this.scorela);

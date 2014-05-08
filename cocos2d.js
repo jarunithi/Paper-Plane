@@ -16,7 +16,8 @@
             'src/GameLayer.js',
             'src/Plane.js',
             'src/Background.js',
-            'src/Bar.js'
+            'src/Bar.js',
+            'src/missile.js'
             
             
             //add your own files in order here

@@ -1,9 +1,9 @@
-var angle=0,headup=false,over=false;
+var angle=0,headup=false;
 var Plane = cc.Sprite.extend({
-    ctor: function () {
+    ctor: function (gamelayer) {
         this._super();
         this.initWithFile('images/Plane.png');
-        
+        this.gameLayer=gamelayer;
     },
     update: function( dt ) {
         this.rotage();
@@ -16,12 +16,12 @@ var Plane = cc.Sprite.extend({
             angle-=0.23;}
         else{
             if(angle>=20)angle+=0.27;    
-            else angle+=0.19         ;
+            else angle+=0.19*2;
         }
         this.setRotation(angle);
     },
     updateY:function(dt){   
-        if(!over){
+        if(!this.gameLayer.isOver){
         var pos=this.getPosition();
         var y=Math.abs(Math.sin(angle*4))*Math.abs(angle/10);
         if(angle>=0)
@@ -41,10 +41,10 @@ var Plane = cc.Sprite.extend({
     },
     test:function(dt){
         var pos=this.getPosition();
-       if(pos.y>630||pos.y<-30) over=true;
+       if(pos.y>630||pos.y<-30) this.gameLayer.isOver=true;
     },
-    getOver:function(){
-        return over;
+    getheadup:function(){
+        return headup;
     },
     ReOver:function(){
         over=false;

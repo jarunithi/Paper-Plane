@@ -2,6 +2,7 @@ var GameLayer = cc.LayerColor.extend({
     init: function() {
         this.isOver=false;
         this.miscount=0;
+        this.diff=1;
         this._super( new cc.Color4B( 127, 127, 127, 255 ) );
         this.setPosition( new cc.Point( 0, 0 ) );
         this.Bg1 =new Background();
@@ -64,6 +65,7 @@ var GameLayer = cc.LayerColor.extend({
     },
     update: function() {
         this.time++;
+        this.diff+=0.002;
         var temp=this.Bg1.getTemp();
         this.distance.setString( sprintf("%.1f m", temp));
         this.la2.setString("Missile dodge : "+this.miscount);
@@ -93,11 +95,30 @@ var GameLayer = cc.LayerColor.extend({
             this.scheduleOnce(this.relable,6);
             }
         if(this.time%50==0){
-            var i=(-1+(Math.random()*(3-0)));
+            var i=(-1+(Math.random()*(this.diff-0)));
+            console.log(i);
             if(i<1.8)this.genMissile();
+            else if(i<2.8) {
+                this.genMissile();
+                this.scheduleOnce(this.genMissile,0.4);
+            }
+            else if(i<3.8) {
+                this.genMissile();
+                this.scheduleOnce(this.genMissile,0.4);
+                this.scheduleOnce(this.genMissile,0.8);
+            }
+            else if(i<3.8) {
+                this.genMissile();
+                this.scheduleOnce(this.genMissile,0.4);
+                this.scheduleOnce(this.genMissile,0.8);
+                this.scheduleOnce(this.genMissile,1.2);
+            }
             else {
                 this.genMissile();
-                this.scheduleOnce(this.genMissile,0.5);
+                this.scheduleOnce(this.genMissile,0.4);
+                this.scheduleOnce(this.genMissile,0.8);
+                this.scheduleOnce(this.genMissile,1.2);
+                this.scheduleOnce(this.genMissile,1.6);
             }
             
         }

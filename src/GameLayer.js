@@ -65,7 +65,7 @@ var GameLayer = cc.LayerColor.extend({
     },
     update: function() {
         this.time++;
-        this.diff+=0.002;
+        this.diff+=0.003;
         var temp=this.Bg1.getTemp();
         this.distance.setString( sprintf("%.1f m", temp));
         this.la2.setString("Missile dodge : "+this.miscount);
@@ -94,31 +94,30 @@ var GameLayer = cc.LayerColor.extend({
             this.scheduleOnce(this.fadeScore,4.5);
             this.scheduleOnce(this.relable,6);
             }
-        if(this.time%50==0){
+        if(this.time%70==0){
             var i=(-1+(Math.random()*(this.diff-0)));
-            console.log(i);
-            if(i<1.8)this.genMissile();
-            else if(i<2.8) {
+            if(i<2)this.genMissile();
+            else if(i<3) {
                 this.genMissile();
-                this.scheduleOnce(this.genMissile,0.4);
+                this.scheduleOnce(this.genMissile,0.25);
             }
-            else if(i<3.8) {
+            else if(i<4) {
                 this.genMissile();
-                this.scheduleOnce(this.genMissile,0.4);
-                this.scheduleOnce(this.genMissile,0.8);
+                this.scheduleOnce(this.genMissile,0.25);
+                this.scheduleOnce(this.genMissile,0.5);
             }
-            else if(i<3.8) {
+            else if(i<5) {
                 this.genMissile();
-                this.scheduleOnce(this.genMissile,0.4);
-                this.scheduleOnce(this.genMissile,0.8);
-                this.scheduleOnce(this.genMissile,1.2);
+                this.scheduleOnce(this.genMissile,0.25);
+                this.scheduleOnce(this.genMissile,0.5);
+                this.scheduleOnce(this.genMissile,0.75);
             }
             else {
                 this.genMissile();
-                this.scheduleOnce(this.genMissile,0.4);
-                this.scheduleOnce(this.genMissile,0.8);
-                this.scheduleOnce(this.genMissile,1.2);
-                this.scheduleOnce(this.genMissile,1.6);
+                this.scheduleOnce(this.genMissile,0.25);
+                this.scheduleOnce(this.genMissile,0.5);
+                this.scheduleOnce(this.genMissile,0.75);
+                this.scheduleOnce(this.genMissile,1);
             }
             
         }

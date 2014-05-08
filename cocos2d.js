@@ -6,7 +6,7 @@
         chipmunk: false,
         showFPS: true,
         loadExtension: false,
-        frameRate: 600,
+        frameRate: 00,
         renderMode: 1,       //Choose of RenderMode: 0(default), 1(Canvas only), 2(WebGL only)
         tag: 'gameCanvas', //the dom element to run cocos2d on
         engineDir: 'cocos2d/',
@@ -17,7 +17,8 @@
             'src/Plane.js',
             'src/Background.js',
             'src/Bar.js',
-            'src/missile.js'
+            'src/missile.js',
+            'src/resource.js'
             
             
             //add your own files in order here

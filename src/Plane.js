@@ -2,7 +2,7 @@ var angle=0,headup=false;
 var Plane = cc.Sprite.extend({
     ctor: function (gamelayer) {
         this._super();
-        this.initWithFile('images/Plane.png');
+        this.initWithFile(s_Plane);
         this.gameLayer=gamelayer;
     },
     update: function( dt ) {

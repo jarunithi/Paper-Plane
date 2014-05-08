@@ -1,14 +1,14 @@
 var headBar = cc.Sprite.extend({
     ctor: function () {
         this._super();
-        this.initWithFile('images/headbar.png');
+        this.initWithFile(s_headBar);
         
     }
  });
 var bodyBar = cc.Sprite.extend({
     ctor: function () {
         this._super();
-        this.initWithFile('images/bodybar.png');
+        this.initWithFile(s_bodyBar);
         
     },
     updatepos:function(scale){
@@ -21,7 +21,7 @@ var bodyBar = cc.Sprite.extend({
 var tailBar = cc.Sprite.extend({
     ctor: function () {
         this._super();
-        this.initWithFile('images/tailbar.png');
+        this.initWithFile(s_tailBar);
         
     },
     updatepos:function(scale){
@@ -33,7 +33,7 @@ var tailBar = cc.Sprite.extend({
 var OverScene = cc.Sprite.extend({
     ctor: function () {
         this._super();
-        this.initWithFile('images/over.png');
+        this.initWithFile(s_OverScene);
         this.setOpacity(0);
         this.setPosition( new cc.Point( 400,300 ) );  
     }
@@ -41,7 +41,7 @@ var OverScene = cc.Sprite.extend({
 var Overtext = cc.Sprite.extend({
     ctor: function () {
         this._super();
-        this.initWithFile('images/gameover.png');
+        this.initWithFile(s_Overtext);
         this.setOpacity(0);
         this.setPosition( new cc.Point( 400,400 ) );  
         

@@ -1,7 +1,7 @@
 var missile = cc.Sprite.extend({
     ctor: function (game,diff) {
         this._super();
-        this.initWithFile('images/missile.png');
+        this.initWithFile(s_missile);
         this.speedg=3;
         if(diff>1.3)this.difficult=diff;
         else this.diff=1;

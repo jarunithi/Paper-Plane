@@ -1,8 +1,10 @@
 var GameLayer = cc.LayerColor.extend({
     init: function() {
         this.isOver=false;
+        this.isStart=false;
         this.miscount=0;
         this.diff=1;
+        this.diffy=3;
         this._super( new cc.Color4B( 127, 127, 127, 255 ) );
         this.setPosition( new cc.Point( 0, 0 ) );
         this.Bg1 =new Background();
@@ -48,14 +50,17 @@ var GameLayer = cc.LayerColor.extend({
         this.la2.setString("Missile dodge : "+this.miscount);
         this.addChild(this.la2);
         this.time=0;
-        this.scheduleUpdate();  
         this.setKeyboardEnabled( true );
         return true;
     },
     onKeyDown: function( e ) {
+        if(!this.isStart){
+        this.scheduleUpdate();
+        this.isStart=true;
+        }
         if(this.sta>0&&!this.isOver){
 	    this.plane.headup();
-        this.sta-=0.4;
+        this.sta-=1;
         this.staminaLabel.setString( "Stamina ");}
         else {this.plane.headdown();}
         if(e==13&&this.isOver){this.re();}
@@ -66,16 +71,14 @@ var GameLayer = cc.LayerColor.extend({
     update: function() {
         this.time++;
         this.diff+=0.003;
+        this.diffy-=0.00008;
         var temp=this.Bg1.getTemp();
         this.distance.setString( sprintf("%.1f m", temp));
         this.la2.setString("Missile dodge : "+this.miscount);
         if(!this.isOver){
-        this.Bg1.scheduleUpdate();
-        this.Bg2.scheduleUpdate();
-        this.Bg3.scheduleUpdate();
-        this.plane.scheduleUpdate();
+        this.reupdate();
         if(this.sta>=100)this.sta=100;
-        if(!this.plane.getheadup())this.sta+=0.1;
+        if(!this.plane.getheadup())this.sta+=0.02;
         this.body.updatepos(this.sta);
         this.tail.updatepos(this.sta);
         }
@@ -85,16 +88,12 @@ var GameLayer = cc.LayerColor.extend({
             this.addChild(this.overbg);
             this.overbg.runAction(cc.FadeTo.create(2,100));
             this.scheduleOnce(this.fadeGameOver,1.5);
-            this.unscheduleUpdate();
-            this.plane.unscheduleUpdate();
-            this.Bg1.unscheduleUpdate();
-            this.Bg2.unscheduleUpdate();
-            this.Bg3.unscheduleUpdate();
+            this.unupdate();
             this.scheduleOnce(this.fadela,3);
             this.scheduleOnce(this.fadeScore,4.5);
             this.scheduleOnce(this.relable,6);
             }
-        if(this.time%70==0){
+        if(this.time%80==0){
             var i=(-1+(Math.random()*(this.diff-0)));
             if(i<2)this.genMissile();
             else if(i<3) {
@@ -158,18 +157,32 @@ var GameLayer = cc.LayerColor.extend({
             this.score.runAction(cc.FadeIn.create(2));
     },
     genMissile:function(){
-        this.mis=new missile(this);
+        this.mis=new missile(this,this.diffy);
         this.mis.random();
         this.addChild(this.mis);
         this.mis.scheduleUpdate(this.plane);
     },
     relable:function(obj){
         this.scorela= cc.LabelTTF.create( '0', 'Arial', 20 );
-	        this.scorela.setPosition( new cc.Point( 400, 50 ) );
-            this.scorela.setString("Press Enter to try again");
-            this.scorela.setOpacity(0);
-            this.addChild(this.scorela);
+	    this.scorela.setPosition( new cc.Point( 400, 50 ) );
+        this.scorela.setString("Press Enter to try again");
+        this.scorela.setOpacity(0);
+        this.addChild(this.scorela);
         this.scorela.runAction(cc.FadeIn.create(2));
+    },
+    unupdate:function(){
+        this.unscheduleUpdate();
+            this.plane.unscheduleUpdate();
+            this.Bg1.unscheduleUpdate();
+            this.Bg2.unscheduleUpdate();
+            this.Bg3.unscheduleUpdate();
+    },
+    reupdate:function(){
+        this.scheduleUpdate();
+            this.plane.scheduleUpdate();
+            this.Bg1.scheduleUpdate();
+            this.Bg2.scheduleUpdate();
+            this.Bg3.scheduleUpdate();
     }
                                      
 });

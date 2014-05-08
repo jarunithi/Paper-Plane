@@ -1,8 +1,10 @@
 var missile = cc.Sprite.extend({
-    ctor: function (game) {
+    ctor: function (game,diff) {
         this._super();
         this.initWithFile('images/missile.png');
         this.speedg=3;
+        if(diff>1.3)this.difficult=diff;
+        else this.diff=1;
         this.gameLayer=game;
         this.setScale(0.2);
     },
@@ -22,11 +24,11 @@ var missile = cc.Sprite.extend({
         var angle=Math.atan(x/y);
         if(myPos.y<oPos.y){
         var speedx=myPos.x-this.speedg;
-        var speedy=myPos.y+this.speedg/2.5*Math.cos(angle);
+        var speedy=myPos.y+this.speedg/this.difficult*Math.cos(angle);
         this.setRotation(angle*57.5-90);}
         else{
         var speedx=myPos.x-this.speedg;
-        var speedy=myPos.y-this.speedg/2.5*Math.cos(angle);
+        var speedy=myPos.y-this.speedg/this.difficult*Math.cos(angle);
         this.setRotation(angle*57.5+90);}
          this.setPosition(new cc.Point( speedx, speedy ) );
     },

@@ -44,7 +44,7 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild(this.la);
         this.la.runAction(cc.FadeIn.create(2));
         this.la2= cc.LabelTTF.create( '0', 'Arial', 20 );
-        this.la2.setPosition( new cc.Point( 100, 500 ) );
+        this.la2.setPosition( new cc.Point( 120, 500 ) );
         this.la2.setString("Missile dodge : "+this.miscount);
         this.addChild(this.la2);
         this.time=0;
@@ -112,12 +112,20 @@ var GameLayer = cc.LayerColor.extend({
                 this.scheduleOnce(this.genMissile,0.5);
                 this.scheduleOnce(this.genMissile,0.75);
             }
+            else if(i<6) {
+                this.genMissile();
+                this.scheduleOnce(this.genMissile,0.25);
+                this.scheduleOnce(this.genMissile,0.5);
+                this.scheduleOnce(this.genMissile,0.75);
+                this.scheduleOnce(this.genMissile,1);
+            }
             else {
                 this.genMissile();
                 this.scheduleOnce(this.genMissile,0.25);
                 this.scheduleOnce(this.genMissile,0.5);
                 this.scheduleOnce(this.genMissile,0.75);
                 this.scheduleOnce(this.genMissile,1);
+                this.scheduleOnce(this.genMissile,1.25);
             }
             
         }

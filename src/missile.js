@@ -44,7 +44,7 @@ var missile = cc.Sprite.extend({
        if(pos.x>201&&pos.x<202){this.gameLayer.miscount+=1;}
     },
     random:function(){
-    var y=25+Math.random()*550;
+    var y=40+Math.random()*520;
     this.setPosition( new cc.Point( 850, y ) );
     },
     setoPos:function(obj){

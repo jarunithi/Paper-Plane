@@ -97,7 +97,7 @@ var GameLayer = cc.LayerColor.extend({
             if(i<9)this.genMissile();
             else if(i>=9) {
                 this.genMissile();
-                this.scheduleOnce(this.genMissile,0.15);
+                this.scheduleOnce(this.genMissile,0.2);
             }
            
             //console.log(this.interval+" , "+this.time+" , "+this.diffy);

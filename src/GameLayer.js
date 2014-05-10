@@ -3,8 +3,8 @@ var GameLayer = cc.LayerColor.extend({
         this.isOver=false;
         this.isStart=false;
         this.miscount=0;
-        this.diff=1;
         this.diffy=3;
+        this.interval=200;
         this._super( new cc.Color4B( 127, 127, 127, 255 ) );
         this.setPosition( new cc.Point( 0, 0 ) );
         this.Bg1 =new Background();
@@ -39,7 +39,7 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild(this.body);
 	   this.addChild( this.staminaLabel );
         this.addChild(this.distance);
-        this.la= cc.LabelTTF.create( '0', 'Arial', 20 );
+        this.la= cc.LabelTTF.create( '0', 'Arial', 27 );
         this.la.setPosition( new cc.Point( 400, 65 ) );
         this.la.setString("Press anykey to fly the plane up and dodge missiles");
         this.la.setOpacity(0);
@@ -60,7 +60,7 @@ var GameLayer = cc.LayerColor.extend({
         }
         if(this.sta>0&&!this.isOver){
 	    this.plane.headup();
-        this.sta-=1;
+        this.sta-=0.5;
         this.staminaLabel.setString( "Stamina ");}
         else {this.plane.headdown();}
         if(e==13&&this.isOver){this.re();}
@@ -70,8 +70,7 @@ var GameLayer = cc.LayerColor.extend({
     },
     update: function() {
         this.time++;
-        this.diff+=0.0015;
-        this.diffy-=0.00008;
+        this.diffy-=0.0001;
         var temp=this.Bg1.getTemp();
         this.distance.setString( sprintf("%.1f m", temp));
         this.la2.setString("Missile dodge : "+this.miscount);
@@ -89,45 +88,23 @@ var GameLayer = cc.LayerColor.extend({
             this.overbg.runAction(cc.FadeTo.create(2,100));
             this.scheduleOnce(this.fadeGameOver,1.5);
             this.unupdate();
-            this.scheduleOnce(this.fadela,3);
-            this.scheduleOnce(this.fadeScore,4.5);
-            this.scheduleOnce(this.relable,6);
+            this.scheduleOnce(this.fadela,2);
+            this.scheduleOnce(this.fadeScore,3.5);
+            this.scheduleOnce(this.relable,5);
             }
-        if(this.time%80==0){
-            var i=(-1+(Math.random()*(this.diff-0)));
-            if(i<2)this.genMissile();
-            else if(i<3) {
+        if(this.time%this.interval==0){
+            var i=(Math.random()*10);
+            if(i<9)this.genMissile();
+            else if(i>=9) {
                 this.genMissile();
-                this.scheduleOnce(this.genMissile,0.25);
+                this.scheduleOnce(this.genMissile,0.15);
             }
-            else if(i<4) {
-                this.genMissile();
-                this.scheduleOnce(this.genMissile,0.25);
-                this.scheduleOnce(this.genMissile,0.5);
-            }
-            else if(i<5) {
-                this.genMissile();
-                this.scheduleOnce(this.genMissile,0.25);
-                this.scheduleOnce(this.genMissile,0.5);
-                this.scheduleOnce(this.genMissile,0.75);
-            }
-            else if(i<6) {
-                this.genMissile();
-                this.scheduleOnce(this.genMissile,0.25);
-                this.scheduleOnce(this.genMissile,0.5);
-                this.scheduleOnce(this.genMissile,0.75);
-                this.scheduleOnce(this.genMissile,1);
-            }
-            else {
-                this.genMissile();
-                this.scheduleOnce(this.genMissile,0.25);
-                this.scheduleOnce(this.genMissile,0.5);
-                this.scheduleOnce(this.genMissile,0.75);
-                this.scheduleOnce(this.genMissile,1);
-                this.scheduleOnce(this.genMissile,1.25);
-            }
-            
+           
+            //console.log(this.interval+" , "+this.time+" , "+this.diffy);
         }
+        if(this.time%500==0&&this.interval>0){
+                this.interval-=10;
+            }
     },
     re:function(){
         this.isOver=false;
@@ -151,7 +128,7 @@ var GameLayer = cc.LayerColor.extend({
     fadeScore:function(obj){
         this.score= cc.LabelTTF.create( '0', 'Arial', 50 );
 	        this.score.setPosition( new cc.Point( 400, 180 ) );
-            this.score.setString(sprintf("%d",this.Bg1.getTemp()*100+this.miscount*50));
+            this.score.setString(sprintf("%d",this.Bg1.getTemp()*100+this.miscount*99));
             this.score.setOpacity(0);
             this.addChild(this.score);
             this.score.runAction(cc.FadeIn.create(2));
@@ -160,7 +137,7 @@ var GameLayer = cc.LayerColor.extend({
         this.mis=new missile(this,this.diffy);
         this.mis.random();
         this.addChild(this.mis);
-        this.mis.scheduleUpdate(this.plane);
+        this.mis.scheduleUpdate();
     },
     relable:function(obj){
         this.scorela= cc.LabelTTF.create( '0', 'Arial', 20 );

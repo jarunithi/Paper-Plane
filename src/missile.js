@@ -3,8 +3,8 @@ var missile = cc.Sprite.extend({
         this._super();
         this.initWithFile(s_missile);
         this.speedg=3;
-        if(diff>1.3)this.difficult=diff;
-        else this.diff=1;
+        if(diff>1)this.difficult=diff;
+        else this.difficult=1;
         this.gameLayer=game;
         this.setScale(0.2);
     },
@@ -19,6 +19,7 @@ var missile = cc.Sprite.extend({
  
     getnear: function(oPos){
         var myPos = this.getPosition();
+        //this.difficult=0.5;
         var x=myPos.x-oPos.x;
         var y=myPos.y-oPos.y;
         var angle=Math.atan(x/y);

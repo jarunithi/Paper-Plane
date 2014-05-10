@@ -13,7 +13,9 @@ var Plane = cc.Sprite.extend({
     },  
     rotage:function(){
         if(headup){
-            angle-=0.27;}
+            if(angle<=-20)angle-=0.27;
+            else angle-=0.19*2;
+        }
         else{
             if(angle>=20)angle+=0.27;    
             else angle+=0.19*2;
